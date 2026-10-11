@@ -1,13 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import {
   Target, Camera, Megaphone, Monitor, BarChart3, TrendingUp, Gem, Heart, Sparkles, Globe,
   CalendarDays, FileText, Zap, ArrowRight, Instagram, Linkedin,
 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import palms from "@/assets/palms.jpg";
-import { submitLead } from "@/lib/leads.functions";
+import { submitLead, PRESUPUESTOS, FACTURACIONES, HORAS } from "@/lib/leads.functions";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,8 +23,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// Reemplazar con tu enlace real de Google Calendar (página de citas)
-const CALENDAR_URL = "https://calendar.google.com/calendar/appointments";
+const TIPOS = ["Residencial", "Comercial", "Lujo", "Terrenos", "Proyecto en desarrollo", "Clínica estética", "Medicina estética / Spa", "Otro"] as const;
 
 const services = [
   { icon: Target, t: "Estrategia de Marketing", d: "Definimos tu posicionamiento, objetivos y audiencia ideal para atraer compradores reales." },
@@ -168,10 +167,30 @@ function Field({ label, name, type = "text", required = true }: { label: string;
   );
 }
 
+const selectCls = "mt-2 w-full border-b border-input bg-transparent py-2 text-sm outline-none focus:border-primary";
+
+function Select({ label, name, options, className = "" }: { label: string; name: string; options: readonly string[]; className?: string }) {
+  return (
+    <label className={`block ${className}`}>
+      <span className="text-xs text-muted-foreground">{label} *</span>
+      <select name={name} required defaultValue="" className={selectCls}>
+        <option value="" disabled>Selecciona</option>
+        {options.map((o) => <option key={o} value={o}>{o}</option>)}
+      </select>
+    </label>
+  );
+}
+
 function Contact() {
   const send = useServerFn(submitLead);
-  const [state, setState] = useState<"idle" | "sending" | "ok" | "error">("idle");
+  const [state, setState] = useState<"idle" | "sending" | "ok" | "okNoCal" | "error">("idle");
   const [err, setErr] = useState("");
+  const [minDate, setMinDate] = useState("");
+  useEffect(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 1);
+    setMinDate(d.toISOString().slice(0, 10));
+  }, []);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -179,8 +198,16 @@ function Contact() {
     const f = Object.fromEntries(new FormData(form)) as Record<string, string>;
     setState("sending");
     try {
-      await send({ data: { nombre: f["nombre"] ?? "", correo: f["correo"] ?? "", telefono: f["telefono"] ?? "", tipo: f["tipo"] ?? "", mensaje: f["mensaje"] ?? "" } });
-      setState("ok");
+      const r = await send({
+        data: {
+          nombre: f["nombre"] ?? "", apellido: f["apellido"] ?? "", correo: f["correo"] ?? "",
+          telefono: f["telefono"] ?? "", tipo: f["tipo"] ?? "", mensaje: f["mensaje"] ?? "",
+          fecha: f["fecha"] ?? "", hora: (f["hora"] ?? "") as (typeof HORAS)[number],
+          presupuesto: (f["presupuesto"] ?? "") as (typeof PRESUPUESTOS)[number],
+          facturacion: (f["facturacion"] ?? "") as (typeof FACTURACIONES)[number],
+        },
+      });
+      setState(r.calendar ? "ok" : "okNoCal");
       form.reset();
     } catch (x) {
       setErr(x instanceof Error ? x.message : "Error al enviar");
@@ -195,30 +222,33 @@ function Contact() {
         <h2 className="mt-6 font-display text-5xl italic">Hablemos de tu proyecto.</h2>
         <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">Cuéntanos sobre tu negocio y agenda una consulta gratuita. Te ayudaremos a identificar las mejores oportunidades para llevar tu inmobiliaria al siguiente nivel.</p>
         <div className="mt-12 grid grid-cols-3 gap-6 text-xs">
-          <a href={CALENDAR_URL} target="_blank" rel="noreferrer" className="flex items-start gap-3 hover:text-primary"><CalendarDays className="shrink-0 text-primary" size={22} strokeWidth={1.4} />Consulta gratuita sin compromiso</a>
+          <div className="flex items-start gap-3"><CalendarDays className="shrink-0 text-primary" size={22} strokeWidth={1.4} />Consulta gratuita sin compromiso</div>
           <div className="flex items-start gap-3"><FileText className="shrink-0 text-primary" size={22} strokeWidth={1.4} />Análisis personalizado de tu marca</div>
           <div className="flex items-start gap-3"><Zap className="shrink-0 text-primary" size={22} strokeWidth={1.4} />Propuesta adaptada a tus objetivos</div>
         </div>
       </div>
       <form onSubmit={onSubmit} className="grid gap-6 rounded-sm border border-border bg-card p-8 sm:grid-cols-2">
-        <Field label="Nombre completo" name="nombre" />
+        <Field label="Nombre" name="nombre" />
+        <Field label="Apellido" name="apellido" />
         <Field label="Correo electrónico" name="correo" type="email" />
         <Field label="Teléfono / WhatsApp" name="telefono" type="tel" />
+        <Select label="Tipo de negocio" name="tipo" options={TIPOS} className="sm:col-span-2" />
+        <Select label="¿Qué presupuesto estimado tienes invertido o disponible para este proyecto?" name="presupuesto" options={PRESUPUESTOS} className="sm:col-span-2" />
+        <Select label="¿Cuál es el nivel de facturación mensual actual de tu negocio?" name="facturacion" options={FACTURACIONES} className="sm:col-span-2" />
         <label className="block">
-          <span className="text-xs text-muted-foreground">Tipo de negocio *</span>
-          <select name="tipo" required defaultValue="" className="mt-2 w-full border-b border-input bg-transparent py-2 text-sm outline-none focus:border-primary">
-            <option value="" disabled>Selecciona</option>
-            <option>Residencial</option><option>Comercial</option><option>Lujo</option><option>Terrenos</option><option>Proyecto en desarrollo</option><option>Clínica estética</option><option>Medicina estética / Spa</option><option>Otro</option>
-          </select>
+          <span className="text-xs text-muted-foreground">Fecha de la consulta *</span>
+          <input name="fecha" type="date" required min={minDate} className={selectCls} />
         </label>
+        <Select label="Hora (RD)" name="hora" options={HORAS} />
         <label className="block sm:col-span-2">
-          <span className="text-xs text-muted-foreground">Cuéntanos sobre tu proyecto</span>
-          <textarea name="mensaje" rows={3} maxLength={1000} placeholder="¿Qué necesitas? ¿Cuáles son tus objetivos?" className="mt-2 w-full border border-input bg-transparent p-3 text-sm outline-none focus:border-primary" />
+          <span className="text-xs text-muted-foreground">¿Cuál es tu principal desafío? *</span>
+          <textarea name="mensaje" rows={3} required maxLength={1000} placeholder="¿Qué necesitas? ¿Cuáles son tus objetivos?" className="mt-2 w-full border border-input bg-transparent p-3 text-sm outline-none focus:border-primary" />
         </label>
         <button disabled={state === "sending"} className="flex items-center justify-center gap-3 rounded-sm bg-primary py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-primary-foreground transition hover:opacity-90 disabled:opacity-60 sm:col-span-2">
-          {state === "sending" ? "Enviando..." : "Enviar solicitud"} <ArrowRight size={14} />
+          {state === "sending" ? "Enviando..." : "Agendar consulta"} <ArrowRight size={14} />
         </button>
-        {state === "ok" && <p className="text-sm text-primary sm:col-span-2">¡Gracias! Te contactaremos pronto.</p>}
+        {state === "ok" && <p className="text-sm text-primary sm:col-span-2">¡Gracias! Tu cita fue agendada y recibirás una invitación en tu correo.</p>}
+        {state === "okNoCal" && <p className="text-sm text-primary sm:col-span-2">¡Gracias! Recibimos tu solicitud y te confirmaremos la hora pronto.</p>}
         {state === "error" && <p className="text-sm text-destructive sm:col-span-2">{err}</p>}
       </form>
     </section>
