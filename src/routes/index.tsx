@@ -3,7 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState, type FormEvent } from "react";
 import {
   Target, Camera, Megaphone, Monitor, BarChart3, TrendingUp, Gem, Heart, Sparkles, Globe,
-  CalendarDays, FileText, Zap, ArrowRight, Instagram, Linkedin,
+  CalendarDays, FileText, Zap, ArrowRight,
 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import palms from "@/assets/palms.jpg";
@@ -147,7 +147,6 @@ function Index() {
           </div>
           <div className="flex items-center gap-8 text-[11px] uppercase tracking-[0.2em] text-ink-foreground">
             <a href="#">Inicio</a><a href="#servicios">Servicios</a><a href="#nosotros">Nosotros</a><a href="#contacto">Contacto</a>
-            <Instagram size={16} /><Linkedin size={16} />
           </div>
         </div>
         <div className="mx-auto flex max-w-7xl justify-between border-t border-ink-foreground/10 px-6 py-5 text-[10px] uppercase tracking-[0.2em] text-ink-foreground/60">
