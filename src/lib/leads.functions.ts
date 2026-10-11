@@ -17,7 +17,19 @@ export const FACTURACIONES = [
   "Más de 1,000,000 de pesos al mes",
 ] as const;
 
-export const HORAS = ["09:00", "10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00"] as const;
+// Citas de 1 hora entre las 2:00 PM y las 4:00 PM (hora de República Dominicana).
+export const HORAS = ["14:00", "15:00"] as const;
+export const HORAS_ANTELACION = 4;
+
+// República Dominicana es UTC-4 todo el año (sin horario de verano).
+export function ahoraRD() {
+  return new Date(Date.now() - 4 * 3600 * 1000).toISOString().slice(0, 10);
+}
+
+export function slotDisponible(fecha: string, hora: string) {
+  const inicio = new Date(`${fecha}T${hora}:00-04:00`).getTime();
+  return inicio - Date.now() >= HORAS_ANTELACION * 3600 * 1000;
+}
 
 const schema = z.object({
   nombre: z.string().trim().min(1).max(60),
