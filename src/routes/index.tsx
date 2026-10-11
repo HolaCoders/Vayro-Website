@@ -179,7 +179,7 @@ function Contact() {
     const f = Object.fromEntries(new FormData(form)) as Record<string, string>;
     setState("sending");
     try {
-      await send({ data: { nombre: f.nombre, correo: f.correo, telefono: f.telefono, tipo: f.tipo, mensaje: f.mensaje } });
+      await send({ data: { nombre: f["nombre"] ?? "", correo: f["correo"] ?? "", telefono: f["telefono"] ?? "", tipo: f["tipo"] ?? "", mensaje: f["mensaje"] ?? "" } });
       setState("ok");
       form.reset();
     } catch (x) {
