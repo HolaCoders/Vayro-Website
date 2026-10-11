@@ -205,10 +205,10 @@ function Contact() {
         <Field label="Correo electrónico" name="correo" type="email" />
         <Field label="Teléfono / WhatsApp" name="telefono" type="tel" />
         <label className="block">
-          <span className="text-xs text-muted-foreground">Tipo de propiedad *</span>
+          <span className="text-xs text-muted-foreground">Tipo de negocio *</span>
           <select name="tipo" required defaultValue="" className="mt-2 w-full border-b border-input bg-transparent py-2 text-sm outline-none focus:border-primary">
             <option value="" disabled>Selecciona</option>
-            <option>Residencial</option><option>Comercial</option><option>Lujo</option><option>Terrenos</option><option>Proyecto en desarrollo</option>
+            <option>Residencial</option><option>Comercial</option><option>Lujo</option><option>Terrenos</option><option>Proyecto en desarrollo</option><option>Clínica estética</option><option>Medicina estética / Spa</option><option>Otro</option>
           </select>
         </label>
         <label className="block sm:col-span-2">
