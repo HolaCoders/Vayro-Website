@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import palms from "@/assets/palms.jpg";
-import { submitLead, PRESUPUESTOS, FACTURACIONES, HORAS } from "@/lib/leads.functions";
+import { submitLead, PRESUPUESTOS, FACTURACIONES, HORAS, ahoraRD, slotDisponible } from "@/lib/leads.functions";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -185,11 +185,11 @@ function Contact() {
   const [state, setState] = useState<"idle" | "sending" | "ok" | "okNoCal" | "error">("idle");
   const [err, setErr] = useState("");
   const [minDate, setMinDate] = useState("");
+  const [fecha, setFecha] = useState("");
   useEffect(() => {
-    const d = new Date();
-    d.setDate(d.getDate() + 1);
-    setMinDate(d.toISOString().slice(0, 10));
+    setMinDate(ahoraRD());
   }, []);
+  const horasDisponibles = fecha ? HORAS.filter((h) => slotDisponible(fecha, h)) : [...HORAS];
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -208,6 +208,7 @@ function Contact() {
       });
       setState(r.calendar ? "ok" : "okNoCal");
       form.reset();
+      setFecha("");
     } catch (x) {
       setErr(x instanceof Error ? x.message : "Error al enviar");
       setState("error");
@@ -236,9 +237,12 @@ function Contact() {
         <Select label="¿Cuál es el nivel de facturación mensual actual de tu negocio?" name="facturacion" options={FACTURACIONES} className="sm:col-span-2" />
         <label className="block">
           <span className="text-xs text-muted-foreground">Fecha de la consulta *</span>
-          <input name="fecha" type="date" required min={minDate} className={selectCls} />
+          <input name="fecha" type="date" required min={minDate} value={fecha} onChange={(e) => setFecha(e.target.value)} className={selectCls} />
         </label>
-        <Select label="Hora (RD)" name="hora" options={HORAS} />
+        <div>
+          <Select label="Hora (RD)" name="hora" options={horasDisponibles} />
+          {fecha && horasDisponibles.length === 0 && <p className="mt-2 text-xs text-muted-foreground">No hay horarios disponibles para esa fecha: se necesitan 4 horas de anticipación. Elige otro día.</p>}
+        </div>
         <label className="block sm:col-span-2">
           <span className="text-xs text-muted-foreground">¿Cuál es tu principal desafío? *</span>
           <textarea name="mensaje" rows={3} required maxLength={1000} placeholder="¿Qué necesitas? ¿Cuáles son tus objetivos?" className="mt-2 w-full border border-input bg-transparent p-3 text-sm outline-none focus:border-primary" />

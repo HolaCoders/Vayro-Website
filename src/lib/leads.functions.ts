@@ -57,6 +57,10 @@ function addOneHour(fecha: string, hora: string) {
 export const submitLead = createServerFn({ method: "POST" })
   .inputValidator((d) => schema.parse(d))
   .handler(async ({ data }) => {
+    if (!slotDisponible(data.fecha, data.hora)) {
+      throw new Error("Las citas requieren al menos 4 horas de anticipación. Elige otra fecha u hora.");
+    }
+
     const lovableKey = process.env["LOVABLE_API_KEY"];
     const sheetsKey = process.env["GOOGLE_SHEETS_API_KEY"];
     const calendarKey = process.env["GOOGLE_CALENDAR_API_KEY"];
