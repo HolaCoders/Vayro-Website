@@ -185,11 +185,11 @@ function Contact() {
   const [state, setState] = useState<"idle" | "sending" | "ok" | "okNoCal" | "error">("idle");
   const [err, setErr] = useState("");
   const [minDate, setMinDate] = useState("");
+  const [fecha, setFecha] = useState("");
   useEffect(() => {
-    const d = new Date();
-    d.setDate(d.getDate() + 1);
-    setMinDate(d.toISOString().slice(0, 10));
+    setMinDate(ahoraRD());
   }, []);
+  const horasDisponibles = fecha ? HORAS.filter((h) => slotDisponible(fecha, h)) : [...HORAS];
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
