@@ -208,6 +208,7 @@ function Contact() {
       });
       setState(r.calendar ? "ok" : "okNoCal");
       form.reset();
+      setFecha("");
     } catch (x) {
       setErr(x instanceof Error ? x.message : "Error al enviar");
       setState("error");
