@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import palms from "@/assets/palms.jpg";
-import { submitLead, PRESUPUESTOS, FACTURACIONES, HORAS } from "@/lib/leads.functions";
+import { submitLead, PRESUPUESTOS, FACTURACIONES, HORAS, ahoraRD, slotDisponible } from "@/lib/leads.functions";
 
 export const Route = createFileRoute("/")({
   head: () => ({
