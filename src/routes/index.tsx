@@ -237,9 +237,12 @@ function Contact() {
         <Select label="¿Cuál es el nivel de facturación mensual actual de tu negocio?" name="facturacion" options={FACTURACIONES} className="sm:col-span-2" />
         <label className="block">
           <span className="text-xs text-muted-foreground">Fecha de la consulta *</span>
-          <input name="fecha" type="date" required min={minDate} className={selectCls} />
+          <input name="fecha" type="date" required min={minDate} value={fecha} onChange={(e) => setFecha(e.target.value)} className={selectCls} />
         </label>
-        <Select label="Hora (RD)" name="hora" options={HORAS} />
+        <div>
+          <Select label="Hora (RD)" name="hora" options={horasDisponibles} />
+          {fecha && horasDisponibles.length === 0 && <p className="mt-2 text-xs text-muted-foreground">No hay horarios disponibles para esa fecha: se necesitan 4 horas de anticipación. Elige otro día.</p>}
+        </div>
         <label className="block sm:col-span-2">
           <span className="text-xs text-muted-foreground">¿Cuál es tu principal desafío? *</span>
           <textarea name="mensaje" rows={3} required maxLength={1000} placeholder="¿Qué necesitas? ¿Cuáles son tus objetivos?" className="mt-2 w-full border border-input bg-transparent p-3 text-sm outline-none focus:border-primary" />
