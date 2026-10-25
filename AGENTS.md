@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Install sitewide tracking scripts through the root route head and fallback markup in RootShell so tracking is shared without changing page layouts.
