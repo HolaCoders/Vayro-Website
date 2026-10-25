@@ -157,3 +157,25 @@
     color: var(--color-foreground);
   }
 }
+
+/* Animaciones del regalo en /gracias */
+@keyframes vayro-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes vayro-pop {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes vayro-sparkle {
+  0% { opacity: 0; transform: translateY(0) scale(0.4); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-46px) scale(1.1); }
+}
+.vayro-float { animation: vayro-float 3.5s ease-in-out infinite; }
+.vayro-pop { animation: vayro-pop 0.7s ease-out both; }
+.vayro-sparkle { animation: vayro-sparkle 1.4s ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .vayro-float, .vayro-pop, .vayro-sparkle { animation: none; }
+}
