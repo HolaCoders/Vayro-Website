@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState, type FormEvent } from "react";
 import {
@@ -182,6 +182,7 @@ function Select({ label, name, options, className = "" }: { label: string; name:
 
 function Contact() {
   const send = useServerFn(submitLead);
+  const navigate = useNavigate();
   const [state, setState] = useState<"idle" | "sending" | "ok" | "okNoCal" | "error">("idle");
   const [err, setErr] = useState("");
   const [minDate, setMinDate] = useState("");
@@ -209,6 +210,7 @@ function Contact() {
       setState(r.calendar ? "ok" : "okNoCal");
       form.reset();
       setFecha("");
+      navigate({ to: "/gracias", search: { nombre: f["nombre"] ?? "" } });
     } catch (x) {
       setErr(x instanceof Error ? x.message : "Error al enviar");
       setState("error");
