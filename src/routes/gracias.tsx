@@ -6,7 +6,7 @@ import { FRASES } from "@/lib/frases";
 
 export const Route = createFileRoute("/gracias")({
   validateSearch: (search: Record<string, unknown>): { nombre: string } => ({
-    nombre: typeof search.nombre === "string" ? search.nombre.trim().slice(0, 60) : "",
+    nombre: typeof search["nombre"] === "string" ? search["nombre"].trim().slice(0, 60) : "",
   }),
   head: () => ({
     meta: [
@@ -49,7 +49,7 @@ function Gift({ open }: { open: boolean }) {
         style={{ transformBox: "fill-box", transformOrigin: "center" }}
         className={cn(
           "transition-all duration-700 ease-out",
-          open ? "-translate-y-16 -rotate-12 opacity-0" : "vayro-float",
+          open ? "-translate-y-9 -rotate-6 opacity-70" : "vayro-float",
         )}
       >
         <path d="M80 60C66 48 50 44 52 33 54 23 73 30 80 46" className="fill-primary stroke-cream" strokeWidth="2" />
