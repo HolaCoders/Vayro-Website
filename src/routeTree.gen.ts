@@ -10,11 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EquipoRouteImport } from './routes/equipo'
 import { Route as GraciasRouteImport } from './routes/gracias'
+import { Route as PortafolioRouteImport } from './routes/portafolio'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EquipoRoute = EquipoRouteImport.update({
+  id: '/equipo',
+  path: '/equipo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GraciasRoute = GraciasRouteImport.update({
@@ -22,31 +29,44 @@ const GraciasRoute = GraciasRouteImport.update({
   path: '/gracias',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortafolioRoute = PortafolioRouteImport.update({
+  id: '/portafolio',
+  path: '/portafolio',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/equipo': typeof EquipoRoute
   '/gracias': typeof GraciasRoute
+  '/portafolio': typeof PortafolioRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/equipo': typeof EquipoRoute
   '/gracias': typeof GraciasRoute
+  '/portafolio': typeof PortafolioRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/equipo': typeof EquipoRoute
   '/gracias': typeof GraciasRoute
+  '/portafolio': typeof PortafolioRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/gracias'
+  fullPaths: '/' | '/equipo' | '/gracias' | '/portafolio'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/gracias'
-  id: '__root__' | '/' | '/gracias'
+  to: '/' | '/equipo' | '/gracias' | '/portafolio'
+  id: '__root__' | '/' | '/equipo' | '/gracias' | '/portafolio'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EquipoRoute: typeof EquipoRoute
   GraciasRoute: typeof GraciasRoute
+  PortafolioRoute: typeof PortafolioRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,6 +78,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/equipo': {
+      id: '/equipo'
+      path: '/equipo'
+      fullPath: '/equipo'
+      preLoaderRoute: typeof EquipoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/gracias': {
       id: '/gracias'
       path: '/gracias'
@@ -65,12 +92,21 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GraciasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portafolio': {
+      id: '/portafolio'
+      path: '/portafolio'
+      fullPath: '/portafolio'
+      preLoaderRoute: typeof PortafolioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EquipoRoute: EquipoRoute,
   GraciasRoute: GraciasRoute,
+  PortafolioRoute: PortafolioRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

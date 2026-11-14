@@ -5,16 +5,18 @@ import {
   Target, Camera, Megaphone, Monitor, BarChart3, TrendingUp, Gem, Heart, Sparkles, Globe,
   CalendarDays, FileText, Zap, ArrowRight,
 } from "lucide-react";
-import hero from "@/assets/hero.jpg";
-import palms from "@/assets/palms.jpg";
+import hero from "@/assets/vayro-studio.jpg";
+import { Button } from "@/components/ui/button";
+import { SiteHeader, SiteFooter, PortfolioSection, TeamSection, SectionLabel } from "@/components/marketing/site";
+
 import { submitLead, PRESUPUESTOS, FACTURACIONES, HORAS, ahoraRD, slotDisponible } from "@/lib/leads.functions";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "VAYRO Marketing | Marketing digital para inmobiliarias" },
-      { name: "description", content: "Estrategias de marketing digital de alto nivel para inmobiliarias: más visibilidad y más compradores calificados." },
-      { property: "og:title", content: "VAYRO Marketing | Marketing inmobiliario" },
+      { title: "VAYRO Marketing | Inmobiliarias y clínicas estéticas" },
+      { name: "description", content: "Estrategia, creatividad y marketing digital para inmobiliarias y clínicas estéticas. Descubre nuestro portafolio y agenda una consulta." },
+      { property: "og:title", content: "VAYRO Marketing | Tu marca en su mejor versión" },
       { property: "og:description", content: "Más visibilidad. Más compradores. Agenda tu consulta gratuita." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -26,135 +28,37 @@ export const Route = createFileRoute("/")({
 const TIPOS = ["Residencial", "Comercial", "Lujo", "Terrenos", "Proyecto en desarrollo", "Clínica estética", "Medicina estética / Spa", "Otro"] as const;
 
 const services = [
-  { icon: Target, t: "Estrategia de Marketing", d: "Definimos tu posicionamiento, objetivos y audiencia ideal para atraer compradores reales." },
-  { icon: Camera, t: "Creación de Contenido", d: "Fotografía, video y textos que destacan el valor de tus propiedades y tu marca." },
-  { icon: Megaphone, t: "Publicidad Digital", d: "Campañas en Meta, Google y más, para llegar a compradores calificados." },
+  { icon: Target, t: "Estrategia de Marketing", d: "Definimos tu posicionamiento y audiencia ideal para atraer a los clientes correctos." },
+  { icon: Camera, t: "Creación de Contenido", d: "Fotografía, video y textos que destacan el valor de tu negocio y tu marca." },
+  { icon: Megaphone, t: "Publicidad Digital", d: "Campañas en Meta y Google para conectar con clientes potenciales calificados." },
   { icon: Monitor, t: "Diseño Web & Landing Pages", d: "Páginas optimizadas para captar leads y convertir visitas en consultas." },
   { icon: BarChart3, t: "Gestión de Redes Sociales", d: "Contenido estratégico y comunidad activa que posiciona tu marca." },
   { icon: TrendingUp, t: "Analytics & Optimización", d: "Medimos, analizamos y ajustamos para maximizar tus resultados." },
 ];
-const why = [
-  { icon: Gem, t: "Enfoque en resultados", d: "Estrategias pensadas para generar leads de calidad y ventas reales." },
-  { icon: Heart, t: "Equipo especializado", d: "Experiencia en el sector inmobiliario y en marketing digital de alto rendimiento." },
-  { icon: Sparkles, t: "Soluciones a medida", d: "Cada proyecto es único. Adaptamos nuestras estrategias a tus objetivos y mercado." },
-  { icon: Globe, t: "Visión global", d: "Conectamos tu marca con audiencias locales e internacionales." },
-];
-
-function Eyebrow({ children, light }: { children: string; light?: boolean }) {
-  return (
-    <p className={`flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.25em] ${light ? "text-ink-foreground/80" : "text-foreground/70"}`}>
-      <span className="h-px w-8 bg-primary" />{children}
-    </p>
-  );
-}
-
-function Logo() {
-  return (
-    <div className="flex items-center gap-3">
-      <span className="font-display text-4xl italic text-primary">V.</span>
-      <div className="leading-tight">
-        <p className="font-display text-lg tracking-[0.15em] text-ink-foreground">VAYRO.MARKETING</p>
-        <p className="text-[8px] uppercase tracking-[0.3em] text-ink-foreground/60">Real estate marketing & growth</p>
-      </div>
-    </div>
-  );
-}
-
+function Eyebrow({ children }: { children: string; light?: boolean }) { return <SectionLabel>{children}</SectionLabel>; }
 function Index() {
-  return (
-    <main className="bg-background">
-      <header className="absolute inset-x-0 top-0 z-20">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          <Logo />
-          <nav className="hidden gap-10 text-[11px] uppercase tracking-[0.2em] text-ink-foreground md:flex">
-            <a href="#" className="border-b border-primary pb-1">Inicio</a>
-            <a href="#servicios">Servicios</a>
-            <a href="#nosotros">Nosotros</a>
-            <a href="#contacto">Contacto</a>
-          </nav>
-          <a href="#contacto" className="hidden items-center gap-2 rounded-full border border-primary px-5 py-2 text-[11px] uppercase tracking-[0.15em] text-ink-foreground transition hover:bg-primary sm:flex">
-            Solicita una consulta <ArrowRight size={14} />
-          </a>
-        </div>
-      </header>
-
-      <section className="relative min-h-[640px] overflow-hidden bg-ink">
-        <img src={hero} alt="Villa de lujo con piscina al atardecer" width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-transparent" />
-        <div className="relative mx-auto max-w-7xl px-6 pb-24 pt-44">
-          <Eyebrow light>Marketing digital para inmobiliarias</Eyebrow>
-          <h1 className="mt-6 font-display text-6xl italic leading-[1.05] text-ink-foreground md:text-7xl">
-            Más visibilidad.<br /><span className="text-primary">Más compradores.</span>
-          </h1>
-          <p className="mt-6 max-w-md text-sm leading-relaxed text-ink-foreground/85">
-            En VAYRO.MARKETING ayudamos a inmobiliarias a atraer, conectar y convertir más compradores calificados a través de estrategias de marketing digital de alto nivel.
-          </p>
-          <a href="#contacto" className="mt-10 inline-flex items-center gap-3 rounded-full bg-primary px-8 py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-primary-foreground transition hover:opacity-90">
-            Solicita una consulta <ArrowRight size={14} />
-          </a>
-        </div>
-        <p className="absolute bottom-8 right-8 hidden text-right text-[10px] uppercase tracking-[0.3em] text-ink-foreground/70 md:block">
-          Tu propiedad merece<br />la mejor estrategia
-        </p>
-      </section>
-
-      <section id="servicios" className="mx-auto grid max-w-7xl gap-16 px-6 py-24 lg:grid-cols-[1fr_2fr]">
-        <div>
-          <Eyebrow>Nuestros servicios</Eyebrow>
-          <h2 className="mt-6 font-display text-5xl italic leading-tight">Estrategia, creatividad y resultados reales.</h2>
-          <p className="mt-8 text-sm leading-relaxed text-muted-foreground">Ofrecemos soluciones de marketing digital integrales, diseñadas para el sector inmobiliario. Combinamos estrategia, contenido y tecnología para posicionar tu marca y generar oportunidades de negocio.</p>
-          <a href="#contacto" className="mt-10 inline-flex items-center gap-3 border-b border-primary pb-1 text-[11px] uppercase tracking-[0.2em]">Conoce todos los servicios <ArrowRight size={14} className="text-primary" /></a>
-        </div>
-        <div className="grid gap-x-10 gap-y-14 sm:grid-cols-2 md:grid-cols-3">
-          {services.map(({ icon: I, t, d }) => (
-            <div key={t} className="border-l border-border pl-6">
-              <I className="text-primary" size={28} strokeWidth={1.4} />
-              <h3 className="mt-5 font-display text-xl italic">{t}</h3>
-              <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{d}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="nosotros" className="relative overflow-hidden bg-ink">
-        <img src={palms} alt="" loading="lazy" width={1024} height={1024} className="absolute left-0 top-0 h-full w-1/2 object-cover opacity-60" />
-        <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-24 lg:grid-cols-[1fr_2fr]">
-          <div>
-            <Eyebrow light>Por qué elegir VAYRO</Eyebrow>
-            <h2 className="mt-6 font-display text-5xl italic leading-tight text-ink-foreground">
-              No solo vendemos propiedades,<br /><span className="text-primary underline decoration-1 underline-offset-8">creamos oportunidades.</span>
-            </h2>
-          </div>
-          <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-4">
-            {why.map(({ icon: I, t, d }) => (
-              <div key={t} className="border-l border-ink-foreground/20 pl-6">
-                <I className="text-primary" size={28} strokeWidth={1.4} />
-                <h3 className="mt-5 font-display text-lg italic text-ink-foreground">{t}</h3>
-                <p className="mt-3 text-xs leading-relaxed text-ink-foreground/70">{d}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <Contact />
-
-      <footer className="bg-ink">
-        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-12 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-8">
-            <Logo />
-            <p className="hidden border-l border-ink-foreground/20 pl-8 font-display text-lg italic text-ink-foreground/90 md:block">Estrategia digital para<br />un mercado sin fronteras.</p>
-          </div>
-          <div className="flex items-center gap-8 text-[11px] uppercase tracking-[0.2em] text-ink-foreground">
-            <a href="#">Inicio</a><a href="#servicios">Servicios</a><a href="#nosotros">Nosotros</a><a href="#contacto">Contacto</a>
-          </div>
-        </div>
-        <div className="mx-auto flex max-w-7xl justify-between border-t border-ink-foreground/10 px-6 py-5 text-[10px] uppercase tracking-[0.2em] text-ink-foreground/60">
-          <span>© 2026 VAYRO.MARKETING. All rights reserved.</span><span>República Dominicana | Global</span>
-        </div>
-      </footer>
-    </main>
-  );
+  return <main className="bg-background">
+    <SiteHeader />
+    <section className="modern-hero">
+      <img src={hero} alt="Villa contemporánea con piscina y arquitectura tropical" width={1920} height={1088} className="hero-photo" />
+      <div className="hero-shade" />
+      <div className="site-container relative py-20 md:py-24">
+        <p className="flex items-center gap-2 text-xs text-ink-foreground/80"><span className="size-2 rounded-full bg-primary"/> Estrategia digital. Impacto real.</p>
+        <h1 className="hero-title mt-6">VAYRO<span className="text-primary">.</span><br/><span className="hero-subtitle">Tu marca, en su<br/>mejor versión.</span></h1>
+        <p className="mt-6 max-w-md text-sm leading-relaxed text-ink-foreground/75">Conectamos inmobiliarias y clínicas estéticas con las personas correctas. Estrategia, creatividad y marketing que abre nuevas oportunidades.</p>
+        <Button asChild className="mt-8 h-12 rounded-full px-6"><a href="#contacto">Solicita una consulta <ArrowRight/></a></Button>
+        <div className="mt-12 flex gap-6 text-[10px] uppercase text-ink-foreground/65"><span>Inmobiliarias</span><span className="border-l border-ink-foreground/30 pl-6">Clínicas estéticas</span></div>
+      </div>
+    </section>
+    <section id="servicios" className="site-container py-20">
+      <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><SectionLabel>Lo que hacemos</SectionLabel><h2 className="section-title">Todo lo que tu marca<br/>necesita para crecer.</h2></div><p className="max-w-sm text-sm leading-relaxed text-muted-foreground">Una estrategia integral. Cada pieza conectada con tus objetivos, desde la primera impresión hasta la próxima consulta.</p></div>
+      <div className="mt-10 grid gap-0 sm:grid-cols-2 lg:grid-cols-3">{services.map(({icon: I,t,d}, i) => <article key={t} className="service-item"><div className="flex items-center justify-between"><I className="text-primary" size={28} strokeWidth={1.5}/><span className="text-xs text-muted-foreground">0{i+1}</span></div><h3 className="mt-6 font-display text-xl">{t}</h3><p className="mt-3 text-sm leading-relaxed text-muted-foreground">{d}</p></article>)}</div>
+    </section>
+    <PortfolioSection/>
+    <TeamSection/>
+    <Contact/>
+    <SiteFooter/>
+  </main>;
 }
 
 function Field({ label, name, type = "text", required = true }: { label: string; name: string; type?: string; required?: boolean }) {
@@ -221,9 +125,9 @@ function Contact() {
     <section id="contacto" className="mx-auto grid max-w-7xl gap-16 px-6 py-24 lg:grid-cols-2">
       <div>
         <Eyebrow>¿Listo para crecer?</Eyebrow>
-        <h2 className="mt-6 font-display text-5xl italic">Hablemos de tu proyecto.</h2>
-        <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">Cuéntanos sobre tu negocio y agenda una consulta gratuita. Te ayudaremos a identificar las mejores oportunidades para llevar tu inmobiliaria al siguiente nivel.</p>
-        <div className="mt-12 grid grid-cols-3 gap-6 text-xs">
+        <h2 className="section-title">Hablemos de tu proyecto.</h2>
+        <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">Cuéntanos sobre tu negocio y agenda una consulta gratuita. Te ayudaremos a identificar las mejores oportunidades para llevar tu inmobiliaria o clínica estética al siguiente nivel.</p>
+        <div className="mt-10 grid gap-5 text-sm sm:grid-cols-3">
           <div className="flex items-start gap-3"><CalendarDays className="shrink-0 text-primary" size={22} strokeWidth={1.4} />Consulta gratuita sin compromiso</div>
           <div className="flex items-start gap-3"><FileText className="shrink-0 text-primary" size={22} strokeWidth={1.4} />Análisis personalizado de tu marca</div>
           <div className="flex items-start gap-3"><Zap className="shrink-0 text-primary" size={22} strokeWidth={1.4} />Propuesta adaptada a tus objetivos</div>
@@ -249,9 +153,9 @@ function Contact() {
           <span className="text-xs text-muted-foreground">¿Cuál es tu principal desafío? *</span>
           <textarea name="mensaje" rows={3} required maxLength={1000} placeholder="¿Qué necesitas? ¿Cuáles son tus objetivos?" className="mt-2 w-full border border-input bg-transparent p-3 text-sm outline-none focus:border-primary" />
         </label>
-        <button disabled={state === "sending"} className="flex items-center justify-center gap-3 rounded-sm bg-primary py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-primary-foreground transition hover:opacity-90 disabled:opacity-60 sm:col-span-2">
+        <Button disabled={state === "sending"} className="flex items-center justify-center gap-3 h-auto whitespace-normal rounded-md bg-primary py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-primary-foreground transition hover:opacity-90 disabled:opacity-60 sm:col-span-2">
           {state === "sending" ? "Enviando..." : "Agendar consulta"} <ArrowRight size={14} />
-        </button>
+        </Button>
         {state === "ok" && <p className="text-sm text-primary sm:col-span-2">¡Gracias! Tu cita fue agendada y recibirás una invitación en tu correo.</p>}
         {state === "okNoCal" && <p className="text-sm text-primary sm:col-span-2">¡Gracias! Recibimos tu solicitud y te confirmaremos la hora pronto.</p>}
         {state === "error" && <p className="text-sm text-destructive sm:col-span-2">{err}</p>}
