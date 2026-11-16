@@ -63,86 +63,72 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(0.985 0.002 120);
-  --foreground: oklch(0.18 0.01 30);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.88 0.19 122);
-  --primary-foreground: oklch(0.18 0.018 150);
-  --secondary: oklch(0.96 0.008 135);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.45 0.015 40);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.88 0.015 70);
-  --input: oklch(0.86 0.015 70);
-  --ring: oklch(0.65 0.16 122);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  /* Exact supplied palette: Noche, Crema, Bosque, Ámbar, Arcilla. */
+  --night: oklch(0.23737806 0.03405259 247.80186644);
+  --cream: oklch(0.96453638 0.00982949 87.47111635);
+  --forest: oklch(0.47742531 0.07762464 180.63471965);
+  --amber: oklch(0.79060445 0.13374679 79.48400736);
+  --clay: oklch(0.53690680 0.09728383 44.61403568);
+  --background: var(--cream);
+  --foreground: var(--night);
+  --card: var(--cream);
+  --card-foreground: var(--night);
+  --popover: var(--cream);
+  --popover-foreground: var(--night);
+  --primary: var(--forest);
+  --primary-foreground: var(--cream);
+  --secondary: var(--forest);
+  --secondary-foreground: var(--cream);
+  --muted: color-mix(in oklch, var(--forest) 7%, var(--cream));
+  --muted-foreground: color-mix(in oklch, var(--night) 73%, var(--cream));
+  --accent: color-mix(in oklch, var(--forest) 12%, var(--cream));
+  --accent-foreground: var(--night);
+  --destructive: var(--clay);
+  --destructive-foreground: var(--cream);
+  --border: color-mix(in oklch, var(--night) 17%, var(--cream));
+  --input: color-mix(in oklch, var(--night) 30%, var(--cream));
+  --ring: var(--forest);
+  --chart-1: var(--forest);
+  --chart-2: var(--amber);
+  --chart-3: var(--night);
+  --chart-4: var(--clay);
+  --chart-5: var(--cream);
+  --sidebar: var(--night);
+  --sidebar-foreground: var(--cream);
+  --sidebar-primary: var(--amber);
+  --sidebar-primary-foreground: var(--night);
+  --sidebar-accent: var(--forest);
+  --sidebar-accent-foreground: var(--cream);
+  --sidebar-border: color-mix(in oklch, var(--cream) 20%, var(--night));
+  --sidebar-ring: var(--amber);
+  --ink: var(--night);
+  --ink-foreground: var(--cream);
 }
-
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --background: var(--night);
+  --foreground: var(--cream);
+  --card: var(--night);
+  --card-foreground: var(--cream);
+  --popover: var(--night);
+  --popover-foreground: var(--cream);
+  --primary: var(--amber);
+  --primary-foreground: var(--night);
+  --muted: color-mix(in oklch, var(--cream) 8%, var(--night));
+  --muted-foreground: color-mix(in oklch, var(--cream) 75%, var(--night));
+  --accent: var(--forest);
+  --accent-foreground: var(--cream);
+  --border: color-mix(in oklch, var(--cream) 20%, var(--night));
+  --input: color-mix(in oklch, var(--cream) 35%, var(--night));
+  --ring: var(--amber);
 }
-
 @theme inline {
   --font-display: "Space Grotesk", sans-serif;
   --font-sans: "Manrope", system-ui, sans-serif;
   --color-ink: var(--ink);
   --color-ink-foreground: var(--ink-foreground);
   --color-cream: var(--cream);
-}
-:root {
-  --ink: oklch(0.13 0.005 20);
-  --ink-foreground: oklch(0.97 0.01 80);
-  --cream: oklch(0.965 0.012 80);
+  --color-amber: var(--amber);
+  --color-clay: var(--clay);
 }
 
 @layer base {
@@ -186,7 +172,7 @@
 .site-header { background: var(--ink); color: var(--ink-foreground); position: relative; z-index: 20; }
 .site-header nav { font-size: 13px; }
 .site-header nav a { transition: color .2s; }
-.site-header nav a:hover, .nav-active { color: var(--primary); }
+.site-header nav a:hover, .nav-active { color: var(--amber); }
 .wordmark { font-family: var(--font-display); font-size: 38px; font-weight: 700; line-height: 1; display: inline-flex; align-items: baseline; }
 .wordmark-sub { font-family: var(--font-sans); font-size: 8px; margin-left: 9px; font-weight: 500; }
 .modern-hero { position: relative; overflow: hidden; background: var(--ink); color: var(--ink-foreground); }
@@ -195,11 +181,11 @@
 .hero-title { font-family: var(--font-display); font-size: 76px; line-height: 1.02; font-weight: 600; }
 .hero-subtitle { font-size: 52px; line-height: 1.12; display: inline-block; margin-top: 14px; }
 .section-label { display: flex; gap: 10px; align-items: center; font-size: 11px; text-transform: uppercase; color: var(--muted-foreground); }
-.section-label span { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); flex-shrink: 0; }
+.section-label span { width: 8px; height: 8px; border-radius: 50%; background: var(--clay); flex-shrink: 0; }
 .section-title { font-family: var(--font-display); font-size: 40px; font-weight: 500; line-height: 1.15; margin-top: 20px; }
 .page-title { font-family: var(--font-display); font-size: 64px; font-weight: 600; line-height: 1.1; }
 .service-item { padding: 30px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
-.service-item:hover { background: var(--secondary); }
+.service-item:hover { background: var(--accent); }
 html { scroll-behavior: smooth; scroll-padding-top: 24px; }
 @media(max-width: 767px) {
  .site-container { padding-inline: 24px; }
@@ -212,3 +198,18 @@ html { scroll-behavior: smooth; scroll-padding-top: 24px; }
  .service-item { padding: 24px 16px; }
 }
 @media(prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .group img { transition: none; } }
+
+/* Amber is reserved for Noche; cream carries small text on Bosque. */
+.site-header, .modern-hero, footer.bg-ink, main.bg-ink {
+  --primary: var(--amber);
+  --primary-foreground: var(--night);
+  --ring: var(--amber);
+}
+section.bg-secondary { color: var(--secondary-foreground); }
+section.bg-secondary .text-muted-foreground,
+section.bg-secondary .section-label { color: color-mix(in oklch, var(--cream) 85%, var(--forest)); }
+section.bg-secondary .text-primary,
+section.bg-secondary a.text-foreground { color: var(--cream); }
+section.bg-secondary .section-label span { background: var(--cream); }
+section.bg-secondary .divide-border > :not(:last-child) { border-color: color-mix(in oklch, var(--cream) 25%, var(--forest)); }
+section.bg-secondary span.bg-background { color: var(--night); }
