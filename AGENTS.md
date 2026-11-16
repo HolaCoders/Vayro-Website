@@ -11,5 +11,8 @@
 
 - Install sitewide tracking scripts through the root route head and fallback markup in RootShell so tracking is shared without changing page layouts.
 
-- Keep shared marketing navigation, footer, and reusable portfolio/team sections in src/components/marketing/site.tsx so dedicated pages stay consistent.
+- Keep shared marketing navigation, footer, and reusable offer, methodology and case-study sections in src/components/marketing/site.tsx so the five main content routes stay consistent.
 - Label illustrative portfolio work and generated studio imagery as conceptual; never imply real clients or team identities without supplied evidence.
+
+- Keep offer business values in src/lib/growth-offer.ts and assert them in focused tests so every displayed offer uses the same terms.
+- Preserve former portfolio/team URLs with permanent redirects and keep the consultation form in its shared frontend module; marketing changes must not alter submission integrations.

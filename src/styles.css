@@ -213,3 +213,6 @@ section.bg-secondary a.text-foreground { color: var(--cream); }
 section.bg-secondary .section-label span { background: var(--cream); }
 section.bg-secondary .divide-border > :not(:last-child) { border-color: color-mix(in oklch, var(--cream) 25%, var(--forest)); }
 section.bg-secondary span.bg-background { color: var(--night); }
+
+.growth-headline { font-family: var(--font-display); font-size: 64px; font-weight: 500; line-height: 1.08; }
+@media (max-width: 767px) { .growth-headline { font-size: 42px; } }

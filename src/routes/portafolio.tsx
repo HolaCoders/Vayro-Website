@@ -1,4 +1,3 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { SiteHeader, SiteFooter, PortfolioSection } from '@/components/marketing/site';
-export const Route = createFileRoute('/portafolio')({head: () => ({meta:[{title:'Portafolio creativo | VAYRO Marketing'},{name:'description',content:'Explora conceptos de dirección creativa para marcas inmobiliarias y clínicas estéticas de VAYRO Marketing.'},{property:'og:title',content:'Portafolio creativo | VAYRO Marketing'},{property:'og:description',content:'Ideas, identidad y contenido para conectar tu marca con nuevas oportunidades.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary_large_image'}]}),component: PortfolioPage});
-function PortfolioPage(){return <main><SiteHeader/><div className="site-container pt-16"><h1 className="page-title">Portafolio<span className="text-primary">.</span></h1></div><PortfolioSection full/><SiteFooter/></main>;}
+import { createFileRoute, redirect } from '@tanstack/react-router';
+import { marketingHead } from '@/lib/marketing-head';
+export const Route = createFileRoute('/portafolio')({beforeLoad: () => {throw redirect({to:'/case-studies',statusCode:301});}, head: () => marketingHead('Case Studies · VAYRO', 'Proyectos y simulaciones de adquisición inmobiliaria.')});

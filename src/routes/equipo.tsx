@@ -1,4 +1,3 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { SiteHeader, SiteFooter, TeamSection, SectionLabel } from '@/components/marketing/site';
-export const Route = createFileRoute('/equipo')({head: () => ({meta:[{title:'Nuestro equipo y enfoque | VAYRO Marketing'},{name:'description',content:'Conoce el enfoque de VAYRO: estrategia, diseño, contenido y análisis para inmobiliarias y clínicas estéticas.'},{property:'og:title',content:'Equipo VAYRO | Creatividad con dirección'},{property:'og:description',content:'Distintas miradas, un mismo objetivo: crear nuevas oportunidades para tu marca.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary_large_image'}]}),component: TeamPage});
-function TeamPage(){return <main><SiteHeader/><div className="site-container py-16"><SectionLabel>Las ideas empiezan con una conversación</SectionLabel><h1 className="page-title mt-6">Equipo VAYRO<span className="text-primary">.</span></h1></div><TeamSection full/><SiteFooter/></main>;}
+import { createFileRoute, redirect } from '@tanstack/react-router';
+import { marketingHead } from '@/lib/marketing-head';
+export const Route = createFileRoute('/equipo')({beforeLoad: () => {throw redirect({to:'/about',statusCode:301});}, head: () => marketingHead('About · VAYRO', 'Nuestra filosofía y metodología de adquisición inmobiliaria.')});
